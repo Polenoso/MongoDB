@@ -5,8 +5,8 @@
  */
 package ModeloDAO;
 
-import Modelo.Imagen;
-import Modelo.Metadata;
+import Modelo.ETL.Imagen;
+import Modelo.ETL.Metadata;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

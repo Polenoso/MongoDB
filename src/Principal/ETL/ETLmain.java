@@ -5,7 +5,7 @@
  */
 package Principal.ETL;
 
-import Modelo.Imagen;
+import Modelo.ETL.Imagen;
 import Principal.ETL.ETLDAO.Mongo;
 import Principal.ETL.ETLDAO.QueryETL;
 import java.util.ArrayList;

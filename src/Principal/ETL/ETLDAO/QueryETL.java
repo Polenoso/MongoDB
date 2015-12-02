@@ -6,8 +6,8 @@
 package Principal.ETL.ETLDAO;
 
 import ModeloDAO.*;
-import Modelo.Imagen;
-import Modelo.Metadata;
+import Modelo.ETL.Imagen;
+import Modelo.ETL.Metadata;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -74,7 +74,7 @@ public class QueryETL {
                     imagen = new Imagen(id,ruta,nombre,ext,tam,lista_metadatos);
                     listimagen.add(imagen);
                     
-                    //System.out.println(id+" "+nombre+" "+ext+" "+tam+" "+ruta);
+                    //System.out.println(imagen.toString());
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(QueryETL.class.getName()).log(Level.SEVERE, null, ex);

@@ -5,8 +5,8 @@
  */
 package Principal.ETL;
 
-import Modelo.Imagen;
-import Modelo.Metadata;
+import Modelo.ETL.Imagen;
+import Modelo.ETL.Metadata;
 import com.mongodb.util.JSON;
 import java.io.*;
 import java.util.ArrayList;
@@ -32,10 +32,10 @@ public class BsonMaker {
         // TODO code application logic here
         FileWriter fw = null;
         JsonObject json = null;
-         Document doc = new Document();
+         //Document doc = new Document();
          ArrayList<Document> Adoc = new ArrayList<>();
         for(Metadata m : img.getMetadatos()){
-            doc.append("directory", m.getDirectorio()).append("tag",m.getEtiqueta()).append("value", m.getValor());
+            Document doc = new Document().append("directory", m.getDirectorio()).append("tag",m.getEtiqueta()).append("value", m.getValor());
             Adoc.add(doc);
         }
         Document model = new Document()

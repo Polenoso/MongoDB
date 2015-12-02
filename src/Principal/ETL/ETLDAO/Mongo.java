@@ -5,8 +5,8 @@
  */
 package Principal.ETL.ETLDAO;
 
-import Modelo.Imagen;
-import Modelo.Metadata;
+import Modelo.ETL.Imagen;
+import Modelo.ETL.Metadata;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
