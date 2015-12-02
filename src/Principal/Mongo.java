@@ -8,6 +8,9 @@ package Principal;
 import com.mongodb.MongoClient;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 
 import com.mongodb.client.MongoDatabase;
 
@@ -18,30 +21,22 @@ public class Mongo {
       try{   
 		
          // To connect to mongodb server
-         MongoClient mongoClient = new MongoClient( "192.168.183.33" , 27017 );
+         MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
 			
          // Now connect to your databases
          //DB db = mongoClient.getDB( "test" );
          MongoDatabase db = mongoClient.getDatabase("test");
          System.out.println("Connect to database successfully");
          
-         String myUserName = "root";
-         String myPass = "temporal";
-         char[] myPassword = {'t','e','m','p','o','r','a','l'};
-			
-         //boolean auth = db.authenticate(myUserName, myPassword);
-         //System.out.println("Authentication: "+auth);         
-			
-         DBCollection coll = (DBCollection) db.getCollection("imagenes");
+         MongoCollection coll = db.getCollection("imagenes");
          System.out.println("Collection mycol selected successfully");
 			
-         DBCursor cursor = coll.find();
+         FindIterable cursor = coll.find();
+         MongoCursor x = cursor.iterator();
          int i = 1;
 			
-         while (cursor.hasNext()) { 
-            System.out.println("Inserted Document: "+i); 
-            System.out.println(cursor.next()); 
-            i++;
+         while (x.hasNext()) { 
+            System.out.println(x.next());
          }
 			
       }catch(Exception e){
