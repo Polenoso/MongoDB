@@ -10,14 +10,30 @@ package Modelo;
  * @author alejandroruiz
  */
 public class Metadata {
+    private String directorio;
+    private String etiqueta;
     private String valor;
-    private int id_imagen;
-    private int id_etiqueta;
 
-    public Metadata(String valor, int id_imagen, int id_etiqueta) {
+    public Metadata(String directorio, String etiqueta, String valor) {
+        this.directorio = directorio;
+        this.etiqueta = etiqueta;
         this.valor = valor;
-        this.id_imagen = id_imagen;
-        this.id_etiqueta = id_etiqueta;
+    }
+
+    public String getDirectorio() {
+        return directorio;
+    }
+
+    public void setDirectorio(String directorio) {
+        this.directorio = directorio;
+    }
+
+    public String getEtiqueta() {
+        return etiqueta;
+    }
+
+    public void setEtiqueta(String etiqueta) {
+        this.etiqueta = etiqueta;
     }
 
     public String getValor() {
@@ -28,27 +44,12 @@ public class Metadata {
         this.valor = valor;
     }
 
-    public int getId_imagen() {
-        return id_imagen;
-    }
-
-    public void setId_imagen(int id_imagen) {
-        this.id_imagen = id_imagen;
-    }
-
-    public int getId_etiqueta() {
-        return id_etiqueta;
-    }
-
-    public void setId_etiqueta(int id_etiqueta) {
-        this.id_etiqueta = id_etiqueta;
-    }
-
     @Override
     public String toString() {
-        return "Metadata{" + "valor=" + valor + ", id_imagen=" + id_imagen + ", id_etiqueta=" + id_etiqueta + '}';
+        return "Metadata{" + "directorio=" + directorio + ", etiqueta=" + etiqueta + ", valor=" + valor + '}';
     }
     
     
+
     
 }

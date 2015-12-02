@@ -5,26 +5,28 @@
  */
 package Modelo;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author alejandroruiz
  */
 public class Imagen {
     private int id;
-    private int ruta;
+    private String ruta;
     private String nombre;
     private String extension;
     private int tamanno;
+    private ArrayList<Metadata> metadatos;
 
-    public Imagen(int id, String nombre, String extension, int tamanno, int ruta) {
+    public Imagen(int id, String ruta, String nombre, String extension, int tamanno, ArrayList<Metadata> metadatos) {
         this.id = id;
         this.ruta = ruta;
         this.nombre = nombre;
         this.extension = extension;
         this.tamanno = tamanno;
+        this.metadatos = metadatos;
     }
-    
-    
 
     public int getId() {
         return id;
@@ -34,11 +36,11 @@ public class Imagen {
         this.id = id;
     }
 
-    public int getRuta() {
+    public String getRuta() {
         return ruta;
     }
 
-    public void setRuta(int ruta) {
+    public void setRuta(String ruta) {
         this.ruta = ruta;
     }
 
@@ -66,10 +68,20 @@ public class Imagen {
         this.tamanno = tamanno;
     }
 
+    public ArrayList<Metadata> getMetadatos() {
+        return metadatos;
+    }
+
+    public void setMetadatos(ArrayList<Metadata> metadatos) {
+        this.metadatos = metadatos;
+    }
+
     @Override
     public String toString() {
-        return "Imagen{" + "id=" + id + ", ruta=" + ruta + ", nombre=" + nombre + ", extension=" + extension + ", tamanno=" + tamanno + '}';
+        return "Imagen{" + "id=" + id + ", ruta=" + ruta + ", nombre=" + nombre + ", extension=" + extension + ", tamanno=" + tamanno + ", metadatos=" + metadatos + '}';
     }
+
+    
     
     
 }
