@@ -3,20 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Principal;
+package Principal.ETL;
 
 import com.mongodb.MongoClient;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 
 import com.mongodb.client.MongoDatabase;
+import org.bson.Document;
+
 
 public class Mongo {
 
    public static void main( String args[] ) {
+       Document bson = null;
 	
       try{   
 		
@@ -31,10 +32,17 @@ public class Mongo {
          MongoCollection coll = db.getCollection("imagenes");
          System.out.println("Collection mycol selected successfully");
 			
-         FindIterable cursor = coll.find();
-         MongoCursor x = cursor.iterator();
-         int i = 1;
-			
+        
+         bson = BsonMaker.getBSONobject();
+         Document i = new Document().append("_id", bson.get("_id"));
+         if(coll.find(i)){
+             coll.insertOne(bson);
+         }else{
+             coll.findOneAndReplace(i, bson);
+         }
+         
+	 FindIterable cursor = coll.find();
+         MongoCursor x = cursor.iterator();		
          while (x.hasNext()) { 
             System.out.println(x.next());
          }
@@ -42,5 +50,8 @@ public class Mongo {
       }catch(Exception e){
          System.err.println( e.getClass().getName() + ": " + e.getMessage() );
       }
+      
+      
+      
    }
 }
