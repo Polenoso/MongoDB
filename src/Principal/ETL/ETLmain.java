@@ -5,12 +5,27 @@
  */
 package Principal.ETL;
 
+import Modelo.Imagen;
+import Principal.ETL.ETLDAO.Mongo;
+import Principal.ETL.ETLDAO.QueryETL;
+import java.util.ArrayList;
+
 /**
  *
  * @author aitorpagan
  */
 public class ETLmain {
-    public void main(){
+
+    /**
+     *
+     * @param args
+     */
+    public static void main(String[] args){
+        QueryETL imagequery = new QueryETL();
+        ArrayList<Imagen> listimagen = imagequery.extract();
+        for (Imagen img : listimagen){
+            Mongo.insertimage(img);
+        }
         
     }
 }

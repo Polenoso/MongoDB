@@ -5,14 +5,18 @@
  */
 package Modelo;
 
+import Principal.ETL.BsonMaker;
+import com.mongodb.util.JSON;
 import java.util.ArrayList;
+import javax.json.JsonObject;
+import org.bson.Document;
 
 /**
  *
  * @author alejandroruiz
  */
 public class Imagen {
-    private int id;
+    private int _id;
     private String ruta;
     private String nombre;
     private String extension;
@@ -20,7 +24,7 @@ public class Imagen {
     private ArrayList<Metadata> metadatos;
 
     public Imagen(int id, String ruta, String nombre, String extension, int tamanno, ArrayList<Metadata> metadatos) {
-        this.id = id;
+        this._id = id;
         this.ruta = ruta;
         this.nombre = nombre;
         this.extension = extension;
@@ -29,11 +33,11 @@ public class Imagen {
     }
 
     public int getId() {
-        return id;
+        return _id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this._id = id;
     }
 
     public String getRuta() {
@@ -78,10 +82,14 @@ public class Imagen {
 
     @Override
     public String toString() {
-        return "Imagen{" + "id=" + id + ", ruta=" + ruta + ", nombre=" + nombre + ", extension=" + extension + ", tamanno=" + tamanno + ", metadatos=" + metadatos + '}';
+        return "{" + "_id: " + _id + ", ruta:" + ruta + ", nombre: " + nombre + ", extension:" + extension + ", tamanno:" + tamanno + ", metadatos:" + metadatos + '}';
     }
 
-    
+    public Document toBson(){
+        Document bson = new Document();
+        bson = BsonMaker.getBSONobject(this);
+        return bson;
+    }
     
     
 }

@@ -46,7 +46,7 @@ public class Metadata {
 
     @Override
     public String toString() {
-        return "Metadata{" + "directorio=" + directorio + ", etiqueta=" + etiqueta + ", valor=" + valor + '}';
+        return "{" + "directorio:" + directorio + ", etiqueta:" + etiqueta + ", valor:" + valor + '}';
     }
     
     
