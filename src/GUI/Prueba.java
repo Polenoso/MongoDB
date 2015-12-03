@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Principal;
-
-import ModeloDAO.BaseDatos;
+package GUI;
 
 /**
  *
  * @author alejandroruiz
  */
-public class Extraer {
+public class Prueba {
     public static void main(String[] args) {
-        BaseDatos db = new BaseDatos();
-        db.extract();
+        Consultas consulta = new Consultas();
+        Vista v = new Vista();
+        Controlador ctr = new Controlador(v,consulta);
+        Consultas.queryExtension();
     }
     
 }

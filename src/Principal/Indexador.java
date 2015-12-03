@@ -72,7 +72,7 @@ class Indexador {
                              //Recorre las etiquetas
                              for (Tag tag: d.getTags()){
                                  
-                                 System.out.println(tag.getDirectoryName()+" "+ tag.getTagName()+" "+tag.getDescription());
+                                 //System.out.println(tag.getDirectoryName()+" "+ tag.getTagName()+" "+tag.getDescription());
                                  //inserta los metadatas
                                  if(tag.getDescription()!=null && tag.getDescription().length()<256){
                                     bd.insertMetadata(id, tag.getDirectoryName(), tag.getTagName(), tag.getDescription());

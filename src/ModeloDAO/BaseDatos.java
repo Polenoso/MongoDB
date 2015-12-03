@@ -76,7 +76,7 @@ public class BaseDatos {
           return done;  
         }
     
-    public Imagen extract(){
+    /*public Imagen extract(){
         
             Imagen imagen = null;
             try {
@@ -123,7 +123,7 @@ public class BaseDatos {
         
         
         return imagen;
-    }
+    }*/
   
     
     
