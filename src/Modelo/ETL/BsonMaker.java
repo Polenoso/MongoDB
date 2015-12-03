@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Principal.ETL;
+package Modelo.ETL;
 
 import Modelo.ETL.Directory;
 import Modelo.ETL.Imagen;
@@ -33,18 +33,18 @@ public class BsonMaker {
         // TODO code application logic here
         FileWriter fw = null;
         JsonObject json = null;
-         //Document doc = new Document();
-         ArrayList<Document> Adoc = new ArrayList<>();
+         
          ArrayList<Document> Adoc2 = new ArrayList<>();
          for(Directory d : img.getDir()){
+             ArrayList<Document> Adoc = new ArrayList<>();
              String dirname = d.getName();
              Document doc2 = new Document().append("directory", dirname);
              for(Metadata m : d.getMeta()){
                 Document doc = new Document().append("tag",m.getEtiqueta()).append("value", m.getValor());
-                Adoc2.add(doc);
+                Adoc.add(doc);
             }
-             doc2.append(dirname, Adoc2);
-             Adoc.add(doc2);
+             doc2.append("data", Adoc);
+             Adoc2.add(doc2);
          }
         Document model = new Document()
                 .append("_id", img.getId())
@@ -52,9 +52,9 @@ public class BsonMaker {
                 .append("size", img.getTamanno())
                 .append("ext", img.getExtension())
                 .append("path", img.getRuta())
-                .append("meta",Adoc);
+                .append("meta",Adoc2);
        
-        //model.append("meta",asList(doc));
+        
         
         
 //        try {

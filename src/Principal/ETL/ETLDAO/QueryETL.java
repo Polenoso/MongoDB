@@ -46,7 +46,7 @@ public class QueryETL {
                 ResultSet rs = pstmt.executeQuery();
                 while(rs.next()){
                     
-                    ArrayList<Metadata> lista_metadatos = new ArrayList<Metadata>();
+                    
                     ArrayList<Directory> lista_dir = new ArrayList<Directory>();
                     
                     int id = rs.getInt("ID");
@@ -65,16 +65,21 @@ public class QueryETL {
                         String direc = rs2.getString("nombreDir");
                         String etiq = rs2.getString("nombre");
                         String valor = rs2.getString("valor");
+                        //ArrayList<Metadata> lista_metadatos = new ArrayList<Metadata>();
                         
                         
                         Metadata md = new Metadata(etiq,valor);
                         if(lista_dir.contains(new Directory(direc))){
                             int index = lista_dir.indexOf(new Directory(direc));
+                            //System.out.println(lista_dir.get(index).getName().toString()+" "+etiq+valor);
                             lista_dir.get(index).getMeta().add(md);
+                            //System.out.println(lista_dir.get(index).getName()+lista_dir.get(index).getMeta().toString());
                         }else{
                             ArrayList<Metadata> newmeta = new ArrayList<>();
                             newmeta.add(md);
                             lista_dir.add(new Directory(direc,newmeta));
+                            //int index = lista_dir.indexOf(new Directory(direc));
+                            //System.out.println(lista_dir.get(index).getName().toString()+" "+lista_dir.get(index).getMeta().get(0));
                         }
                         
                         //lista_metadatos.add(md);
