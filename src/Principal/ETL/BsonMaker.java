@@ -5,6 +5,7 @@
  */
 package Principal.ETL;
 
+import Modelo.ETL.Directory;
 import Modelo.ETL.Imagen;
 import Modelo.ETL.Metadata;
 import com.mongodb.util.JSON;
@@ -34,10 +35,17 @@ public class BsonMaker {
         JsonObject json = null;
          //Document doc = new Document();
          ArrayList<Document> Adoc = new ArrayList<>();
-        for(Metadata m : img.getMetadatos()){
-            Document doc = new Document().append("directory", m.getDirectorio()).append("tag",m.getEtiqueta()).append("value", m.getValor());
-            Adoc.add(doc);
-        }
+         ArrayList<Document> Adoc2 = new ArrayList<>();
+         for(Directory d : img.getDir()){
+             String dirname = d.getName();
+             Document doc2 = new Document().append("directory", dirname);
+             for(Metadata m : d.getMeta()){
+                Document doc = new Document().append("tag",m.getEtiqueta()).append("value", m.getValor());
+                Adoc2.add(doc);
+            }
+             doc2.append(dirname, Adoc2);
+             Adoc.add(doc2);
+         }
         Document model = new Document()
                 .append("_id", img.getId())
                 .append("name", img.getNombre())
@@ -49,19 +57,19 @@ public class BsonMaker {
         //model.append("meta",asList(doc));
         
         
-        try {
-            fw = new FileWriter("pruebajson.json");
-            PrintWriter pw = new PrintWriter(fw);
-            pw.println(model.toJson());
-        } catch (IOException ex) {
-            Logger.getLogger(BsonMaker.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-            try {
-                fw.close();
-            } catch (IOException ex) {
-                Logger.getLogger(BsonMaker.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//        try {
+//            fw = new FileWriter("pruebajson.json");
+//            PrintWriter pw = new PrintWriter(fw);
+//            pw.println(model.toJson());
+//        } catch (IOException ex) {
+//            Logger.getLogger(BsonMaker.class.getName()).log(Level.SEVERE, null, ex);
+//        }finally{
+//            try {
+//                fw.close();
+//            } catch (IOException ex) {
+//                Logger.getLogger(BsonMaker.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
         
      
         

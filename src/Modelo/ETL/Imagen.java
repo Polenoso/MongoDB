@@ -21,15 +21,15 @@ public class Imagen {
     private String nombre;
     private String extension;
     private int tamanno;
-    private ArrayList<Metadata> metadatos;
+    private ArrayList<Directory> dir;
 
-    public Imagen(int id, String ruta, String nombre, String extension, int tamanno, ArrayList<Metadata> metadatos) {
+    public Imagen(int id, String ruta, String nombre, String extension, int tamanno, ArrayList<Directory> metadatos) {
         this._id = id;
         this.ruta = ruta;
         this.nombre = nombre;
         this.extension = extension;
         this.tamanno = tamanno;
-        this.metadatos = metadatos;
+        this.dir = metadatos;
     }
 
     public int getId() {
@@ -72,17 +72,17 @@ public class Imagen {
         this.tamanno = tamanno;
     }
 
-    public ArrayList<Metadata> getMetadatos() {
-        return metadatos;
+    public ArrayList<Directory> getDir() {
+        return dir;
     }
 
-    public void setMetadatos(ArrayList<Metadata> metadatos) {
-        this.metadatos = metadatos;
+    public void setMetadatos(ArrayList<Directory> metadatos) {
+        this.dir = metadatos;
     }
 
     @Override
     public String toString() {
-        return "{" + "_id: " + _id + ", ruta:" + ruta + ", nombre: " + nombre + ", extension:" + extension + ", tamanno:" + tamanno + ", metadatos:" + metadatos + '}';
+        return "{" + "_id: " + _id + ", ruta:" + ruta + ", nombre: " + nombre + ", extension:" + extension + ", tamanno:" + tamanno + ", directory:" + dir + '}';
     }
 
     public Document toBson(){

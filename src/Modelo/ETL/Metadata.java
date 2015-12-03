@@ -10,23 +10,18 @@ package Modelo.ETL;
  * @author alejandroruiz
  */
 public class Metadata {
-    private String directorio;
     private String etiqueta;
     private String valor;
 
-    public Metadata(String directorio, String etiqueta, String valor) {
-        this.directorio = directorio;
+    public Metadata(String etiqueta, String valor) {
+
         this.etiqueta = etiqueta;
         this.valor = valor;
     }
 
-    public String getDirectorio() {
-        return directorio;
-    }
+ 
 
-    public void setDirectorio(String directorio) {
-        this.directorio = directorio;
-    }
+  
 
     public String getEtiqueta() {
         return etiqueta;
@@ -46,7 +41,7 @@ public class Metadata {
 
     @Override
     public String toString() {
-        return "{" + "directorio:" + directorio + ", etiqueta:" + etiqueta + ", valor:" + valor + '}';
+        return "{" + "etiqueta:" + etiqueta + ", valor:" + valor + '}';
     }
     
     

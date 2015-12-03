@@ -5,6 +5,7 @@
  */
 package Principal.ETL.ETLDAO;
 
+import Modelo.ETL.Directory;
 import ModeloDAO.*;
 import Modelo.ETL.Imagen;
 import Modelo.ETL.Metadata;
@@ -46,6 +47,7 @@ public class QueryETL {
                 while(rs.next()){
                     
                     ArrayList<Metadata> lista_metadatos = new ArrayList<Metadata>();
+                    ArrayList<Directory> lista_dir = new ArrayList<Directory>();
                     
                     int id = rs.getInt("ID");
                     String nombre = rs.getString("NOMBRE");
@@ -65,14 +67,23 @@ public class QueryETL {
                         String valor = rs2.getString("valor");
                         
                         
-                        Metadata md = new Metadata(direc,etiq,valor);
+                        Metadata md = new Metadata(etiq,valor);
+                        if(lista_dir.contains(new Directory(direc))){
+                            int index = lista_dir.indexOf(new Directory(direc));
+                            lista_dir.get(index).getMeta().add(md);
+                        }else{
+                            ArrayList<Metadata> newmeta = new ArrayList<>();
+                            newmeta.add(md);
+                            lista_dir.add(new Directory(direc,newmeta));
+                        }
                         
-                        lista_metadatos.add(md);
+                        //lista_metadatos.add(md);
                         //System.out.println(direc+" "+etiq+" "+valor);
                     }
                     
-                    imagen = new Imagen(id,ruta,nombre,ext,tam,lista_metadatos);
+                    imagen = new Imagen(id,ruta,nombre,ext,tam,lista_dir);
                     listimagen.add(imagen);
+                    
                     
                     //System.out.println(imagen.toString());
                 }
