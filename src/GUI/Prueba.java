@@ -15,6 +15,8 @@ public class Prueba {
         Vista v = new Vista();
         Controlador ctr = new Controlador(v,consulta);
         Consultas.queryExtension();
+        Consultas.queryDirectorios();
+        
     }
     
 }
