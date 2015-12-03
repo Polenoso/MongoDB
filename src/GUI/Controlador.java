@@ -10,6 +10,8 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.TreeSet;
 import javax.swing.DefaultListModel;
@@ -19,7 +21,7 @@ import org.bson.Document;
  *
  * @author alejandroruiz
  */
-public class Controlador implements ActionListener {
+public class Controlador implements ActionListener, MouseListener {
 
     Vista vista;
     Consultas consultas;
@@ -31,7 +33,7 @@ public class Controlador implements ActionListener {
         Directorios();
         Etiquetas();
         v.setVisible(true);
-        initEvents();
+        initEvents(); 
         
     }
     
@@ -74,10 +76,12 @@ public class Controlador implements ActionListener {
             DefaultListModel<String> listaNombre = new DefaultListModel<>();
             while (x.hasNext()){
                 Document p = (Document) x.next();
-               listaNombre.addElement(p.get("path").toString());
+               listaNombre.addElement(p.get("_id").toString()+" "+p.get("path").toString()+"/"+p.get("name").toString()+"."+p.get("ext").toString());
       
             }
             vista.ListaImagenes.setModel(listaNombre);
+            
+
    
         }if(e.getActionCommand().equals("Add")){
             Object[] row = {vista.etiquetas.getSelectedItem()};
@@ -95,6 +99,8 @@ public class Controlador implements ActionListener {
         vista.btnAdd.addActionListener(this);
         vista.btnDel.setActionCommand("Del");
         vista.btnDel.addActionListener(this);
+        vista.ListaImagenes.addMouseListener(this);
+       
         
     }
 
@@ -151,4 +157,43 @@ public class Controlador implements ActionListener {
         }
         
    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int ind = vista.ListaImagenes.getSelectedValue().toString().indexOf(' ');
+  
+            int id = Integer.parseInt(vista.ListaImagenes.getSelectedValue().toString().substring(0, ind));
+            AggregateIterable cur2 = Consultas.queryMeta(id);
+            
+            MongoCursor x2 = cur2.iterator();
+            DefaultListModel<String> listaMeta = new DefaultListModel<>();
+            while(x2.hasNext()){
+                Document p = (Document) x2.next();
+                //listaMeta.addElement(p.get("meta").toString());
+                Document w = (Document) p.get("meta");
+                Document z = (Document) w.get("data");
+                listaMeta.addElement(w.get("directory").toString()+": "+z.get("tag").toString()+": "+z.get("value").toString());
+                //listaMeta.addElement(p.get("meta.directory").toString()+": "+p.get("meta.data.tag").toString()+": "+p.get("meta.data.value").toString());
+            }
+            vista.MetaList.setModel(listaMeta);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+   }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        
+    }
 }

@@ -21,6 +21,40 @@ import org.bson.Document;
 public class Consultas  {
     
     Document query = new Document();
+    
+       public static AggregateIterable queryMeta(int id){
+       Document bson = null;
+	AggregateIterable cur = null;
+      try{   
+		
+         // To connect to mongodb server
+         MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
+         
+         // Now connect to your databases
+         MongoDatabase db = mongoClient.getDatabase("test");
+         System.out.println("Connect to database successfully");
+         ArrayList<Document> p = new ArrayList<>();
+         MongoCollection coll = db.getCollection("imagenes");
+         System.out.println("Collection mycol selected successfully");
+         Document uw = new Document("$unwind", "$meta");
+         Document uw2 = new Document("$unwind", "$meta.data");
+         Document doc = new Document().append("$match", new Document().append("_id", id));
+         p.add(uw);
+         p.add(uw2);
+         p.add(doc);
+         cur =coll.aggregate(p);
+         MongoCursor x = cur.iterator();
+            
+        	
+
+			
+      }catch(Exception e){
+         System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+      }
+      
+    return cur;  
+      
+   }
 
    public static FindIterable queryNombre(Document doc){
        Document bson = null;
