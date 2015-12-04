@@ -44,8 +44,7 @@ public class QueryETL {
                 pstmt = con.prepareStatement("SELECT * FROM IMAGEN, RUTA WHERE RUTA.ID = IMAGEN.RUTA");
                 pstmt.clearParameters();
                 ResultSet rs = pstmt.executeQuery();
-                while(rs.next()){
-                    
+                while(rs.next()){                    
                     
                     ArrayList<Directory> lista_dir = new ArrayList<Directory>();
                     
@@ -55,9 +54,8 @@ public class QueryETL {
                     int tam = rs.getInt("tam");
                     String ruta = rs.getString("path");
                     
-                    System.out.println(id+" "+nombre+" "+ext+" "+tam+" "+ruta);
-                    
-                    pstmt2 = con.prepareStatement("SELECT * FROM DIRECTORIOS,ETIQUETA,METADATA WHERE DIRECTORIOS.id=ETIQUETA.dir AND ETIQUETA.id=METADATA.etq AND METADATA.img=?");
+                    pstmt2 = con.prepareStatement("SELECT * FROM DIRECTORIOS,ETIQUETA,METADATA WHERE DIRECTORIOS.id=ETIQUETA.dir "
+                            + " AND ETIQUETA.id=METADATA.etq AND METADATA.img=?");
                     //pstmt2.clearParameters();
                     pstmt2.setInt(1, id);
                     ResultSet rs2 = pstmt2.executeQuery();
@@ -65,32 +63,22 @@ public class QueryETL {
                         String direc = rs2.getString("nombreDir");
                         String etiq = rs2.getString("nombre");
                         String valor = rs2.getString("valor");
-                        //ArrayList<Metadata> lista_metadatos = new ArrayList<Metadata>();
                         
                         
                         Metadata md = new Metadata(etiq,valor);
                         if(lista_dir.contains(new Directory(direc))){
                             int index = lista_dir.indexOf(new Directory(direc));
-                            //System.out.println(lista_dir.get(index).getName().toString()+" "+etiq+valor);
                             lista_dir.get(index).getMeta().add(md);
-                            //System.out.println(lista_dir.get(index).getName()+lista_dir.get(index).getMeta().toString());
                         }else{
                             ArrayList<Metadata> newmeta = new ArrayList<>();
                             newmeta.add(md);
                             lista_dir.add(new Directory(direc,newmeta));
-                            //int index = lista_dir.indexOf(new Directory(direc));
-                            //System.out.println(lista_dir.get(index).getName().toString()+" "+lista_dir.get(index).getMeta().get(0));
                         }
                         
-                        //lista_metadatos.add(md);
-                        //System.out.println(direc+" "+etiq+" "+valor);
                     }
                     
                     imagen = new Imagen(id,ruta,nombre,ext,tam,lista_dir);
                     listimagen.add(imagen);
-                    
-                    
-                    //System.out.println(imagen.toString());
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(QueryETL.class.getName()).log(Level.SEVERE, null, ex);

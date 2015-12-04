@@ -38,7 +38,7 @@ class Indexador {
                 //Si es un fichero
                 if(s[i].isFile()){
                  MimetypesFileTypeMap mtftp = new MimetypesFileTypeMap();
-                 mtftp.addMimeTypes("image png tif jpg jpeg bmp");
+                 mtftp.addMimeTypes("image png tif jpg jpeg bmp raw jpf");
                  String mimetype = mtftp.getContentType(s[i]);
                  String type = mimetype.split("/")[0];
                  //Si es el fichero es una imagen
@@ -77,7 +77,7 @@ class Indexador {
                                  if(tag.getDescription()!=null && tag.getDescription().length()<256){
                                     bd.insertMetadata(id, tag.getDirectoryName(), tag.getTagName(), tag.getDescription());
                                  }else if(tag.getDescription()==null){
-                                         bd.insertMetadata(id, tag.getDirectoryName(), tag.getTagName(), tag.getDescription());
+                                         bd.insertMetadata(id, tag.getDirectoryName(), tag.getTagName(), "null");
                                      }else{
                                          bd.insertMetadata(id, tag.getDirectoryName(), tag.getTagName(), "Too long");
                                  }
@@ -87,9 +87,13 @@ class Indexador {
                          Logger.getLogger(Indexador.class.getName()).log(Level.SEVERE, null, ex);
                      }
                  }
+                }else if(s[i].isDirectory()){
+                    //Llama a la función de forma recurrente
+                listDirectory(s[i]); 
+                }else{
+                    System.out.println("No es un directorio "+ s[i].toString());
                 }
-                //Llama a la función de forma recurrente
-            listDirectory(s[i]); 
+                
                 
         }
       }

@@ -45,6 +45,7 @@ public class BaseDatos {
                 cs.setInt(5, size);
                 cs.execute();
                 id = cs.getInt(1);
+                cs.close();
                 
                 
             } catch (SQLException ex) {
@@ -67,6 +68,7 @@ public class BaseDatos {
                 cs.setString(4, value);
                 cs.execute();
                 done = true;
+                cs.close();
                 
                 
             } catch (SQLException ex) {
@@ -77,7 +79,12 @@ public class BaseDatos {
         }
     
 
-  
+        @Override
+   public void finalize() throws Throwable{
+       super.finalize();
+       con.close();
+       
+   }
     
     
     
