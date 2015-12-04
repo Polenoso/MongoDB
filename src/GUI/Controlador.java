@@ -80,6 +80,7 @@ public class Controlador implements ActionListener, MouseListener {
       
             }
             vista.ListaImagenes.setModel(listaNombre);
+            vista.numImg.setText(Integer.toString(vista.ListaImagenes.getModel().getSize()));
             
 
    
@@ -160,9 +161,15 @@ public class Controlador implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int ind = vista.ListaImagenes.getSelectedValue().toString().indexOf(' ');
-  
+            int ind = vista.ListaImagenes.getSelectedValue().toString().indexOf(' ');
+            ArrayList<String> Atag = new ArrayList<>();
             int id = Integer.parseInt(vista.ListaImagenes.getSelectedValue().toString().substring(0, ind));
+            if(vista.tagList.getRowCount()>0){
+                for(int i = 0; i<vista.tagList.getRowCount();i++){
+                    Atag.add(vista.tagList.getValueAt(i, 0).toString());
+                    System.out.println(Atag.toString());
+                }
+            }
             AggregateIterable cur2 = Consultas.queryMeta(id);
             
             MongoCursor x2 = cur2.iterator();
@@ -172,7 +179,11 @@ public class Controlador implements ActionListener, MouseListener {
                 //listaMeta.addElement(p.get("meta").toString());
                 Document w = (Document) p.get("meta");
                 Document z = (Document) w.get("data");
-                listaMeta.addElement(w.get("directory").toString()+": "+z.get("tag").toString()+": "+z.get("value").toString());
+                if(!Atag.isEmpty() && (Atag.contains(z.get("tag").toString()))){
+                    listaMeta.addElement(w.get("directory").toString()+": "+z.get("tag").toString()+": "+z.get("value").toString());
+                }else if(Atag.isEmpty()){
+                    listaMeta.addElement(w.get("directory").toString()+": "+z.get("tag").toString()+": "+z.get("value").toString());
+                }
                 //listaMeta.addElement(p.get("meta.directory").toString()+": "+p.get("meta.data.tag").toString()+": "+p.get("meta.data.value").toString());
             }
             vista.MetaList.setModel(listaMeta);
